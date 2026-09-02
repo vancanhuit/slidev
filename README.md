@@ -17,7 +17,10 @@ npm run build
 
 The static site is written to `dist/<deck-name>/`. Public builds omit presenter notes and use hash routing so every deck works independently under its subpath.
 
-Deploy all decks to `https://slides.canhdinh.com` with:
+Published decks are listed at https://slides.canhdinh.com. This deck is available at
+https://slides.canhdinh.com/microsandbox-introduction/.
+
+Deploy all decks manually with:
 
 ```bash
 npm run deploy
