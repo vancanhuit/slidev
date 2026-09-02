@@ -4,7 +4,7 @@ title: microsandbox — A machine for every risky task
 layout: cover
 info: |
   An introduction to microsandbox for safely running untrusted workloads.
-author: Van Canh
+author: Canh Dinh
 transition: slide-left
 mdc: true
 fonts:
@@ -22,7 +22,7 @@ microsandbox makes hardware-isolated Linux environments feel like a function cal
 
 <div class="version-pill">microsandbox 0.6.16 · verified 2 Sep 2026</div>
 
-<div class="footer-note">Isolation · policy · execution</div>
+<div class="footer-note">Canh Dinh · Isolation · policy · execution</div>
 
 <!--
 Open with the tension: modern software increasingly executes code it did not write and should not trust.
