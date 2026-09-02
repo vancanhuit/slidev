@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+@import '@fontsource/maple-mono/400.css';
+@import '@fontsource/maple-mono/600.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --brand-ink: #172033;
@@ -81,7 +83,7 @@ html.dark {
 }
 
 .slidev-layout code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
 }
 
 .slidev-layout.cover,
@@ -113,7 +115,7 @@ html.dark {
 .source,
 .footer-note {
   color: var(--brand-muted);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -123,6 +125,18 @@ html.dark {
 .section .eyebrow,
 .center .eyebrow {
   color: #ff8a6e;
+}
+
+.cover .author-line {
+  margin-bottom: 0.35rem;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.cover .topic-line {
+  margin-bottom: 1rem;
 }
 
 .accent-line {
@@ -178,7 +192,7 @@ html.dark {
   border-radius: 999px;
   padding: 0.35rem 0.75rem;
   color: #ffb09d;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.7rem;
 }
 
@@ -197,7 +211,7 @@ html.dark {
   border-radius: 999px;
   padding: 0.45rem 0.8rem;
   color: #d6dbe5;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.72rem;
 }
 
@@ -233,7 +247,7 @@ html.dark {
   border-top: 2px dashed var(--brand-accent);
   padding-top: 0.35rem;
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-align: center;
@@ -290,7 +304,7 @@ html.dark {
 .card-kicker,
 .persona-role {
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.64rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -301,7 +315,7 @@ html.dark {
   border-top: 1px solid var(--brand-line);
   padding-top: 0.6rem;
   color: var(--brand-muted);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.65rem;
 }
 
@@ -319,14 +333,14 @@ html.dark {
   top: 1.3rem;
   left: 1.25rem;
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-weight: 600;
 }
 
 .fact-detail {
   margin-top: 1.5rem;
   color: #ff8a6e;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.85rem;
   letter-spacing: 0.08em;
 }
@@ -360,7 +374,7 @@ html.dark {
 .decision-arrow,
 .switch-arrow {
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-weight: 600;
 }
 
@@ -402,7 +416,7 @@ html.dark {
   background: #111827;
   padding: 0.7rem 1rem;
   color: #a7f3d0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.68rem;
   line-height: 1.5;
 }
@@ -426,7 +440,7 @@ html.dark {
 
 .numbered-flow span {
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
 }
 
 .numbered-flow strong {
@@ -489,7 +503,7 @@ html.dark {
 }
 
 .link-card a {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.72rem;
 }
 
@@ -528,7 +542,7 @@ html.dark .accent-card {
 .secret-flow strong {
   margin: 0.35rem 0;
   color: var(--brand-ink);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.58rem;
   overflow-wrap: anywhere;
 }
@@ -601,7 +615,7 @@ html.dark .accent-card {
   grid-row: 1 / 3;
   margin-right: 0.65rem;
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
 }
 
 .handoff-flow strong {
@@ -657,7 +671,7 @@ html.dark .accent-card {
   grid-row: 1 / 3;
   margin-right: 0.7rem;
   color: var(--brand-accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
 }
 
 .snapshot-step strong {
@@ -691,7 +705,7 @@ html.dark .accent-card {
   background: var(--brand-card);
   padding: 0.45rem 0.75rem;
   color: var(--brand-ink);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Maple Mono', monospace;
   font-size: 0.62rem;
 }
 

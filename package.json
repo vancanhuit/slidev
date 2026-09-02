@@ -8,6 +8,7 @@
     "export": "slidev export decks/microsandbox-introduction/slides.md"
   },
   "devDependencies": {
+    "@fontsource/maple-mono": "^5.3.0",
     "@slidev/cli": "^52.19.1",
     "@slidev/theme-default": "^0.25.0",
     "wrangler": "^4.128.0"

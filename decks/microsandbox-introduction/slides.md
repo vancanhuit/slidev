@@ -9,10 +9,11 @@ transition: slide-left
 mdc: true
 fonts:
   sans: Inter
-  mono: JetBrains Mono
+  mono: Maple Mono
 ---
 
-<div class="eyebrow">microVMs · untrusted workloads · 2026</div>
+<div class="eyebrow author-line">Canh Dinh</div>
+<div class="eyebrow topic-line">microVMs · untrusted workloads · 2026</div>
 
 # Give risky code<br><span class="accent-text">its own machine.</span>
 
@@ -22,7 +23,7 @@ microsandbox makes hardware-isolated Linux environments feel like a function cal
 
 <div class="version-pill">microsandbox 0.6.16 · verified 2 Sep 2026</div>
 
-<div class="footer-note">Canh Dinh · Isolation · policy · execution</div>
+<div class="footer-note">Isolation · policy · execution</div>
 
 <!--
 Open with the tension: modern software increasingly executes code it did not write and should not trust.
