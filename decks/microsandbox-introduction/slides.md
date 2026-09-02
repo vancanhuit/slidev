@@ -166,7 +166,7 @@ layout: two-cols-header
 
 # Credentials never enter the guest
 
-Guest code receives a placeholder. The real secret materializes only at an allowed destination.
+Guest code receives a placeholder. In supported HTTP fields, the host substitutes it only for an allowed TLS identity.
 
 ::left::
 
@@ -189,14 +189,14 @@ msb create alpine --name agent \
 
 <div class="callout compact-callout">
   <div class="callout-label">Anywhere else</div>
-  <div class="callout-value">The placeholder stays useless.</div>
+  <div class="callout-value">The request is blocked and logged by default.</div>
 </div>
 
-<div class="source">Prefer host environment or secret-store references; raw SDK values persist in sandbox configuration.</div>
+<div class="source">Prefer host-environment references; raw SDK values persist in sandbox configuration.</div>
 
 <!--
 This is stronger than putting a token in the guest environment. The workload can use the credential for one API
-without ever learning its value. Keep allowed hosts narrow and prefer references over raw SDK values.
+without ever learning its value. Keep allowed hosts narrow and prefer host-environment references over raw SDK values.
 -->
 
 ---
@@ -298,7 +298,7 @@ The CLI uses an OCI image and returns the guest process output.
 # Node.js 24.20.0 LTS or newer (microsandbox requires Node >=22)
 node --version
 
-npx --yes microsandbox@0.6.16 run alpine:3.24 -- \
+npx --yes microsandbox@0.6.16 run --hostname demo alpine:3.24 -- \
   sh -lc 'printf "kernel="; uname -r; printf "host="; hostname'
 ```
 
@@ -306,14 +306,14 @@ npx --yes microsandbox@0.6.16 run alpine:3.24 -- \
   <div><span>$</span> node --version</div>
   <div>v24.20.0</div>
   <div><span>$</span> npx ...</div>
-  <div>kernel=6.x.y-msb &nbsp; host=demo</div>
+  <div>kernel=6.12.99 &nbsp; host=demo</div>
 </div>
 
 <div class="source">Pinned for reproducibility: microsandbox 0.6.16 · Alpine 3.24 · check the exact image digest for production.</div>
 
 <!--
 Before presenting, run msb doctor. The first run downloads runtime artifacts and the OCI image, so warm the cache.
-The changing kernel patch output is intentional; the proof is that it is a guest kernel and hostname.
+The pinned runtime currently reports Linux 6.12.99; rerun this command when updating microsandbox.
 -->
 
 ---
@@ -566,6 +566,7 @@ Start from the least authority the task needs.
 msb run --name audit --replace \
   --cpus 1 --memory 512M \
   --max-duration 2m \
+  --mount-dir ./input:/input:ro \
   --no-net \
   alpine:3.24 -- \
   sh -lc 'sha256sum /input/*'
@@ -583,8 +584,8 @@ msb run --name audit --replace \
 <div class="source">A microVM is a boundary, not a substitute for policy.</div>
 
 <!--
-The command assumes an input mount is added for the real workflow; it illustrates the desired policy shape.
-Be explicit that image signatures are not verified automatically, so provenance still belongs to the operator.
+The read-only input mount is explicit. Image signatures are not verified automatically, so provenance still belongs
+to the operator.
 -->
 
 ---
@@ -655,7 +656,7 @@ Global configuration defines environment-owned defaults across the CLI and every
 
 <div class="callout compact-callout">
   <div class="callout-label">Host-owned policy</div>
-  <div class="callout-value">A deployment profile sets an isolation floor workloads cannot weaken.</div>
+  <div class="callout-value">A global multi-tenant profile sets an isolation floor workloads cannot weaken.</div>
 </div>
 
 <div class="source">Keep image, network, mounts, secrets, and lifecycle with the workload; editing global config affects future sandboxes only.</div>
@@ -663,7 +664,7 @@ Global configuration defines environment-owned defaults across the CLI and every
 <!--
 Global configuration is for choices the environment owns: default resources, host policy, registry access,
 backend profiles, and host integration. Workload policy stays explicit in code, CLI flags, or reusable YAML.
-Most values follow normal specificity, but the host deployment profile is authoritative and cannot be relaxed.
+Most values follow normal specificity, but a global multi-tenant deployment profile is authoritative and cannot be relaxed.
 -->
 
 ---
@@ -678,7 +679,7 @@ Most values follow normal specificity, but the host deployment profile is author
   </div>
   <div class="switch-arrow">same SDK →</div>
   <div class="backend-card accent-card">
-    <div class="card-kicker">Cloud · private beta</div>
+    <div class="card-kicker">Cloud</div>
     <h2>Hosted hardware</h2>
     <p>Select the backend and provide an API key; application code stays the same.</p>
   </div>
@@ -770,5 +771,5 @@ class: text-center
 
 <!--
 End on a command the audience can photograph and reproduce.
-Remind local users to run msb doctor and cloud users that hosted access is currently private beta.
+Remind local users to run msb doctor and cloud users to configure an API key.
 -->
