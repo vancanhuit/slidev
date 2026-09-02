@@ -2,10 +2,10 @@
   "name": "presentation-slides",
   "private": true,
   "scripts": {
-    "dev": "slidev microsandbox-introduction.md",
+    "dev": "slidev decks/microsandbox-introduction/slides.md",
     "build": "node scripts/build.mjs",
     "deploy": "npm run build && wrangler deploy",
-    "export": "slidev export microsandbox-introduction.md"
+    "export": "slidev export decks/microsandbox-introduction/slides.md"
   },
   "devDependencies": {
     "@slidev/cli": "^52.19.1",

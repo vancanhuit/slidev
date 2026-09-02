@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Each root Markdown file except `README.md` is a deck. Its filename becomes its URL path. Create a production build with:
+Each directory under `decks/` is a deck. Keep its `slides.md`, assets, and supporting examples together; the directory name becomes its URL path. Create a production build with:
 
 ```bash
 npm run build
@@ -28,12 +28,12 @@ npm run deploy
 
 Pushes to `main` build and deploy automatically through Cloudflare Workers Builds.
 
-`Dockerfile.debian13-systemd` is the tested image used by the deck's systemd example.
+`decks/microsandbox-introduction/Dockerfile.debian13-systemd` is the tested image used by the microsandbox deck.
 
 ## Conventions
 
-- Give each deck a descriptive Markdown filename; `scripts/build.mjs` discovers it automatically.
-- Keep deck-wide settings in the headmatter at the top of each deck file.
-- Put shared visual rules and brand tokens in `styles/index.css`.
-- Put deck assets in `public/` and reference them from `/`.
+- Give each deck a descriptive directory containing `slides.md`; `scripts/build.mjs` discovers it automatically.
+- Keep deck-wide settings in the headmatter at the top of each deck's `slides.md`.
+- Put deck visual rules and brand tokens in its `styles/index.css`.
+- Put deck assets in its `public/` directory and reference them from `/`.
 - Use presenter notes in HTML comments below each slide.
