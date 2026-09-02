@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .playwright-mcp/
+.wrangler/
 *.pdf
 *.pptx
 .DS_Store

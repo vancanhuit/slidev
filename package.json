@@ -3,11 +3,13 @@
   "private": true,
   "scripts": {
     "dev": "slidev microsandbox-introduction.md",
-    "build": "slidev build microsandbox-introduction.md",
+    "build": "node scripts/build.mjs",
+    "deploy": "npm run build && wrangler deploy",
     "export": "slidev export microsandbox-introduction.md"
   },
   "devDependencies": {
     "@slidev/cli": "^52.19.1",
-    "@slidev/theme-default": "^0.25.0"
+    "@slidev/theme-default": "^0.25.0",
+    "wrangler": "^4.128.0"
   }
 }

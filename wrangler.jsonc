@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "canhdinh-slides",
+  "compatibility_date": "2026-09-02",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash"
+  },
+  "routes": [
+    {
+      "pattern": "slides.canhdinh.com",
+      "custom_domain": true
+    }
+  ]
+}
