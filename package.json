@@ -2,9 +2,9 @@
   "name": "presentation-slides",
   "private": true,
   "scripts": {
-    "dev": "slidev",
-    "build": "slidev build",
-    "export": "slidev export"
+    "dev": "slidev microsandbox-introduction.md",
+    "build": "slidev build microsandbox-introduction.md",
+    "export": "slidev export microsandbox-introduction.md"
   },
   "devDependencies": {
     "@slidev/cli": "^52.19.1",
