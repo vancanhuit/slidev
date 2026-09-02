@@ -26,6 +26,8 @@ Deploy all decks manually with:
 npm run deploy
 ```
 
+Pushes to `main` build and deploy automatically through Cloudflare Workers Builds.
+
 `Dockerfile.debian13-systemd` is the tested image used by the deck's systemd example.
 
 ## Conventions
