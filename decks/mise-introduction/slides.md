@@ -98,7 +98,7 @@ Do not pitch mise as only a version manager. Its value is the shared environment
 
 <div class="callout compact-callout">
   <div class="callout-label">Migration path</div>
-  <div class="callout-value">Keep `.tool-versions`; mise can read it and use asdf plugins when needed.</div>
+  <div class="callout-value">Keep <code>.tool-versions</code>; mise can read it and use asdf plugins when needed.</div>
 </div>
 
 ---
@@ -179,13 +179,13 @@ requires a package manager, use one; the workflow after installation is the same
 <div class="comparison-grid">
   <div class="comparison-card accent-card">
     <div class="card-kicker">Interactive shell</div>
-    <h2>`mise activate`</h2>
+    <h2><code>mise activate</code></h2>
     <p>Updates PATH and environment automatically as you change directories.</p>
     <div class="boundary-label">recommended for terminals</div>
   </div>
   <div class="comparison-card">
     <div class="card-kicker">Explicit command</div>
-    <h2>`mise exec`</h2>
+    <h2><code>mise exec</code></h2>
     <p>Creates the environment for one command without shell integration.</p>
     <div class="boundary-label">ideal for scripts and one-offs</div>
   </div>
@@ -608,12 +608,12 @@ steps:
 <div class="comparison-grid two-grid compact-grid">
   <div class="comparison-card">
     <div class="card-kicker">Developer</div>
-    <h2>`mise run check`</h2>
+    <h2><code>mise run check</code></h2>
     <p>Local tools, environment, and task graph.</p>
   </div>
   <div class="comparison-card accent-card">
     <div class="card-kicker">CI</div>
-    <h2>`mise run check`</h2>
+    <h2><code>mise run check</code></h2>
     <p>The same declared versions and task graph.</p>
   </div>
 </div>
@@ -684,9 +684,7 @@ class: text-center
 
 # `mise exec go@latest -- go version`
 
-<div class="link-card">
-  <a href="https://mise.jdx.dev/getting-started.html">mise.jdx.dev/getting-started.html</a>
-</div>
+<a class="link-card" href="https://mise.jdx.dev/getting-started.html">mise.jdx.dev/getting-started.html</a>
 
 <div class="footer-links">
   <span>github.com/jdx/mise</span>

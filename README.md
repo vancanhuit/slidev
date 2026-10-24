@@ -20,6 +20,15 @@ The static site is written to `dist/<deck-name>/`. Public builds omit presenter 
 Published decks are listed at <https://slides.canhdinh.com>. The mise deck is available at
 <https://slides.canhdinh.com/mise-introduction/>.
 
+Use **Reading view** in the mise deck's navigation for a scrollable, phone-friendly version with every code step revealed. It is also available directly at <https://slides.canhdinh.com/mise-introduction/#/read>.
+
+With the build served locally (for example, `python3 -m http.server 4173 --directory dist`) and `playwright-cli` installed, run the mise accessibility regression check:
+
+```bash
+playwright-cli -s=mise-check open 'http://localhost:4173/mise-introduction/'
+playwright-cli -s=mise-check run-code --filename=decks/mise-introduction/checks/accessibility.js
+```
+
 Deploy all decks manually with:
 
 ```bash
