@@ -15,7 +15,7 @@ mise gives a repository one place to declare its tools, environment, and command
 <div class="cover-meta">
   <span class="author-line">Canh Dinh</span>
   <span>tools · environments · tasks · 2026</span>
-  <span>mise 2026.9.0 · verified 2 Sep 2026</span>
+  <span>mise 2026.10.18 · reviewed 24 Oct 2026</span>
 </div>
 
 <div class="footer-note">install · activate · run</div>
@@ -33,7 +33,7 @@ class: text-center
 # “Works on my machine” starts<br>before the application runs.
 
 <div class="problem-row">
-  <span>Node 24?</span><span>Python 3.13?</span><span>Terraform?</span><span>Which env?</span><span>Which command?</span>
+  <span>Node 24 LTS?</span><span>Python 3.15?</span><span>Terraform?</span><span>Which env?</span><span>Which command?</span>
 </div>
 
 <div class="source">A project is more than its package dependencies.</div>
@@ -91,7 +91,7 @@ Do not pitch mise as only a version manager. Its value is the shared environment
 
 <div class="callout">
   <div class="callout-label">Migration path</div>
-  <div class="callout-value">Keep <code>.tool-versions</code>; mise can read it and use asdf plugins when needed.</div>
+  <div class="callout-value">Keep <code>.tool-versions</code>; mise reads it. Legacy asdf plugins are for Linux/macOS, not Windows.</div>
 </div>
 
 ---
@@ -107,7 +107,7 @@ mise walks upward, merges configuration, then puts the right tool binaries first
 <div class="tree-flow">
   <div><strong>~/.config/mise/config.toml</strong><span>global defaults · node@lts</span></div>
   <div><strong>~/work/mise.toml</strong><span>organization tools · terraform</span></div>
-  <div class="tree-current"><strong>~/work/api/mise.toml</strong><span>project override · go@1.27.1</span></div>
+  <div class="tree-current"><strong>~/work/api/mise.toml</strong><span>project override · go@1.27.3</span></div>
 </div>
 
 ::right::
@@ -200,22 +200,22 @@ requires a package manager, use one; the workflow after installation is the same
 # Demo 1 · run a tool without installing it globally
 
 ```bash {1|2|4|all}
-mise exec node@latest -- node --version
-# v26.8.1
+mise exec node@lts -- node --version
+# v24.22.1
 
 mise exec terraform@latest -- terraform version
-# Terraform v1.16.0
+# Terraform v1.17.0
 ```
 
 <div class="terminal-flow">
-  <div><span>request</span><strong>node@latest</strong></div>
+  <div><span>request</span><strong>node@lts</strong></div>
   <div class="flow-arrow">→</div>
   <div><span>mise</span><strong>resolve + install</strong></div>
   <div class="flow-arrow">→</div>
   <div class="terminal-result"><span>process</span><strong>temporary PATH</strong></div>
 </div>
 
-<div class="source"><code>mise x</code> is the short alias for <code>mise exec</code>.</div>
+<div class="source">Example output; <code>@lts</code> and <code>@latest</code> change over time. <code>mise x</code> is the short alias for <code>mise exec</code>.</div>
 
 ---
 layout: two-cols-header
@@ -230,7 +230,7 @@ It installs the requested tools and records them as active in project configurat
 ```bash
 mkdir demo && cd demo
 
-mise use node@latest pnpm@latest
+mise use --pin node@lts pnpm@latest
 
 node --version
 pnpm --version
@@ -241,14 +241,18 @@ pnpm --version
 ```toml
 # mise.toml
 [tools]
-node = "26.8.1"
-pnpm = "11.25.0"
+node = "24.22.1"
+pnpm = "12.15.0"
 ```
 
 <div class="callout">
   <div class="callout-label">Global default</div>
-  <div class="callout-value"><code>mise use --global node@latest</code></div>
+  <div class="callout-value"><code>mise use --global node@lts</code></div>
 </div>
+
+::bottom::
+
+<div class="source">Example pins shown; resolved versions vary. <code>--pin</code> saves exact versions; without it, mise saves the requested selector.</div>
 
 ---
 
@@ -285,17 +289,28 @@ layout: section
 <div class="section-label">03 · Configuration</div>
 
 ---
+layout: two-cols-header
+---
 
 # One file, the complete developer contract
 
-```toml {1-4|6-9|11-17|all}
+::left::
+
+```toml {1-3|5-7|none|all}
 [tools]
-go = "1.27.1"
-golangci-lint = "2.13.2"
+go = "1.27.3"
+golangci-lint = "2.15.0"
 
 [env]
 APP_ENV = { default = "development" }
 _.path = "./bin"
+```
+
+::right::
+
+```toml {all}
+[tasks.test]
+run = "go test ./..."
 
 [tasks.lint]
 description = "Lint Go code"
@@ -304,6 +319,8 @@ run = "golangci-lint run"
 [tasks.check]
 depends = ["lint", "test"]
 ```
+
+::bottom::
 
 <div class="contract-row">
   <div><strong>Tools</strong><span>what executes</span></div>
@@ -385,12 +402,12 @@ mise use ripgrep@latest
 mise use github:BurntSushi/ripgrep
 
 # Language ecosystem
-mise use npm:prettier@latest # 3.9.6
+mise use npm:prettier@latest
 ```
 
 ::bottom::
 
-<div class="source">Prefer core and verified binary backends over runtime-bound package installers when available.</div>
+<div class="source">Prefer core and verified binary backends when available. Example: <code>npm:prettier@latest</code> resolves to 3.9.10 as of 24 Oct 2026.</div>
 
 ---
 layout: section
@@ -490,8 +507,8 @@ func main() {
 ```toml
 # mise.toml
 [tools]
-go = "1.27.1"
-golangci-lint = "2.13.2"
+go = "1.27.3"
+golangci-lint = "2.15.0"
 
 [tasks.test]
 run = "go test ./..."
@@ -515,9 +532,9 @@ depends = ["test", "lint"]
 cd decks/mise-introduction/examples/go-lint
 mise install
 mise current go
-# 1.27.1
+# 1.27.3
 mise current golangci-lint
-# 2.13.2
+# 2.15.0
 mise run check
 # [test] $ go test ./...
 # [lint] $ golangci-lint run
@@ -534,7 +551,7 @@ mise run check
   <div class="terminal-result"><span>3</span><strong>Run workflow</strong><small>same command as CI</small></div>
 </div>
 
-<div class="source">The same two tasks run in parallel with the tools selected by this directory.</div>
+<div class="source">Illustrative output; task order, cache hits, and timings vary. Both tasks run in parallel with the project's tools.</div>
 
 ---
 
@@ -575,8 +592,8 @@ layout: two-cols-header
 
 ```toml
 [tools]
-go = "1.27.1"
-golangci-lint = "2.13.2"
+go = "1.27.3"
+golangci-lint = "2.15.0"
 
 [settings]
 lockfile = true
@@ -604,7 +621,9 @@ git add mise.toml mise.lock
 steps:
   - uses: actions/checkout@v7.0.1
 
-  - uses: jdx/mise-action@v4.3.0
+  - uses: jdx/mise-action@v5.2.3
+    with:
+      version: 2026.10.18
 
   - run: mise run check
 ```
