@@ -1,0 +1,6 @@
+import '@slidev/theme-default/styles/index.ts'
+import '@fontsource/maple-mono/400.css'
+import '@fontsource/maple-mono/600.css'
+import './fonts.css'
+import './tokens.css'
+import './layouts.css'

@@ -1,0 +1,38 @@
+body {
+  max-width: 48rem;
+  margin: 10vh auto;
+  padding: 2rem;
+  color: var(--ink);
+  background: var(--surface);
+  font: 1rem/1.6 var(--font-sans);
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, var(--type-title));
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent-text);
+  text-transform: capitalize;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+a:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}

@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { readdirSync, rmSync, writeFileSync } from 'node:fs'
+import { copyFileSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const decks = readdirSync('decks', { withFileTypes: true })
@@ -28,13 +28,29 @@ const links = decks.map((slug) => {
   return `<li><a href="/${slug}/">${slug.replaceAll('-', ' ')}</a></li>`
 }).join('')
 
+mkdirSync(`${output}/assets`, { recursive: true })
+for (const stylesheet of ['fonts.css', 'tokens.css', 'catalog.css']) {
+  copyFileSync(`themes/forest/styles/${stylesheet}`, `${output}/assets/${stylesheet}`)
+}
+
 writeFileSync(`${output}/index.html`, `<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Canh Dinh's slides</title>
-<style>body{max-width:48rem;margin:10vh auto;padding:2rem;background:#f7f5f0;color:#172033;font:1rem/1.6 system-ui}h1{font-size:2.5rem}a{color:#d83b18;text-transform:capitalize}</style>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/tokens.css">
+<link rel="stylesheet" href="/assets/catalog.css">
+<script>
+  const scheme = matchMedia('(prefers-color-scheme: dark)')
+  const updateTheme = () => document.documentElement.classList.toggle('dark', scheme.matches)
+  updateTheme()
+  scheme.addEventListener('change', updateTheme)
+</script>
+<main>
 <h1>Canh Dinh's slides</h1>
 <ul>${links}</ul>
+</main>
 </html>
 `)

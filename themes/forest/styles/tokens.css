@@ -1,0 +1,40 @@
+:root {
+  color-scheme: light;
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Maple Mono', monospace;
+  --type-title: 2.65rem;
+  --type-body: 1.125rem;
+  --type-code: 0.875rem;
+  --type-label: 0.875rem;
+  --type-caption: 0.875rem;
+  --column-gap: 1.5rem;
+  --ink: #17211b;
+  --muted: #5e6b63;
+  --accent: #16a36a;
+  --accent-text: #087a4e;
+  --accent-bright: #50e3a4;
+  --accent-soft: #e7f8f0;
+  --surface: #faf9f6;
+  --line: #d2d9d3;
+  --card: #fff;
+  --danger: #b43a35;
+  --chapter-surface: #101b15;
+  --inline-code-background: var(--accent-soft);
+}
+
+html.dark {
+  color-scheme: dark;
+  --ink: #f3f8f5;
+  --muted: #a9b8af;
+  --surface: #181a19;
+  --line: #35483d;
+  --card: #232624;
+  --accent-soft: rgb(22 163 106 / 14%);
+  --accent-text: #50e3a4;
+  --danger: #ff9b94;
+}
+
+::selection {
+  color: var(--surface);
+  background: var(--accent-text);
+}

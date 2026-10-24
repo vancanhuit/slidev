@@ -4,6 +4,7 @@
 
 - Each deployable deck lives at `decks/<slug>/slides.md`; `<slug>` is its public path at `https://slides.canhdinh.com/<slug>/`.
 - Keep deck-specific files beside `slides.md`, including `styles/`, `public/`, examples, and Dockerfiles. Slidev treats the deck directory, not the repository root, as that deck's project root.
+- Use the shared local theme at `themes/forest/` with `theme: ../../themes/forest`. Common visual rules and Shiki setup belong in the theme; topic-specific diagrams and route behavior stay deck-local. Never put themes under `decks/`.
 - `scripts/build.mjs` treats every immediate directory under `decks/` as a deck and expects each one to contain `slides.md`.
 - `npm run dev`, `npm run dev:mise`, and `npm run export` target `decks/mise-introduction/slides.md`. Invoke `slidev decks/<slug>/slides.md` directly for another deck.
 
@@ -17,6 +18,7 @@
 ## Fonts And Assets
 
 - Code and technical labels use locally bundled `@fontsource/maple-mono` weights 400 and 600. Do not replace these imports with Google Fonts; Maple Mono is unavailable there.
+- Font loading is owned by `themes/forest/styles/`; automatic font-provider loading is disabled in the theme defaults. Keep the public deck index aligned through the shared font and color styles.
 - Deck-local `public/` paths are referenced from `/` in Slidev content.
 
 ## Deployment

@@ -5,6 +5,13 @@ async (page) => {
     if (!condition) throw new Error(message)
   }
   const report = []
+  const browserErrors = []
+  const onPageError = error => browserErrors.push(error.message)
+  const onConsole = message => {
+    if (message.type() === 'error') browserErrors.push(message.text())
+  }
+  page.on('pageerror', onPageError)
+  page.on('console', onConsole)
 
   // Checks solid/alpha color pairs; gradients also need a visual check.
   const contrastFailures = () => {
@@ -98,6 +105,19 @@ async (page) => {
         y: element.scrollHeight > element.clientHeight + 1,
       }))
       assert(!overflow.x && !overflow.y, `${theme} slide ${slide} overflows: ${JSON.stringify(overflow)}`)
+      const typography = await page.locator(`#slideshow > [data-slidev-no="${slide}"] .slidev-layout`).evaluate(element => ({
+        code: [...element.querySelectorAll('.slidev-code')].map(code => ({
+          size: parseFloat(getComputedStyle(code).fontSize),
+          clipped: code.scrollWidth > code.clientWidth + 1 || code.scrollHeight > code.clientHeight + 1,
+        })),
+        labels: [...element.querySelectorAll('small, .tree-flow strong, .tree-flow span, .backend-list span, .compat-grid span, .contract-row span, .freshness-grid span, .terminal-flow span, .security-flow span, .comparison-table thead th')].map(label => parseFloat(getComputedStyle(label).fontSize)),
+        gutter: element.matches('.two-cols, .two-cols-header') ? parseFloat(getComputedStyle(element).columnGap) : null,
+        font: getComputedStyle(element).fontFamily,
+      }))
+      assert(typography.code.every(code => code.size >= 14 && !code.clipped), `${theme} slide ${slide} code is too small or clipped: ${JSON.stringify(typography.code)}`)
+      assert(typography.labels.every(size => size >= 14), `${theme} slide ${slide} teaching labels are too small`)
+      assert(typography.gutter === null || typography.gutter >= 24, `${theme} slide ${slide} is missing its column gutter`)
+      assert(typography.font.includes('Inter'), `Slide ${slide} lost the shared font`)
       const contrast = await page.evaluate(contrastFailures)
       assert(!contrast.length, `${theme} slide ${slide} contrast: ${JSON.stringify(contrast)}`)
     }
@@ -132,7 +152,34 @@ async (page) => {
     await page.keyboard.press('ArrowRight')
     await page.waitForFunction(() => document.querySelector('.comparison-scroll').scrollLeft > 0)
     assert(page.url().endsWith('#/read'), 'Comparison scrolling navigated away from the reader')
-    report.push(`${theme}: 31 slides, four reader sizes, contrast, stepped code, reduced motion passed`)
+    report.push(`${theme}: 31 slides, four reader sizes, contrast, code/label size, gutters, stepped code, reduced motion passed`)
   }
+
+  await page.goto(new URL('/', base).href)
+  for (const theme of ['light', 'dark']) {
+    await page.emulateMedia({ colorScheme: theme })
+    await page.waitForFunction(dark => document.documentElement.classList.contains('dark') === dark, theme === 'dark')
+    for (const width of [320, 1440]) {
+      await page.setViewportSize({ width, height: 900 })
+      const catalog = await page.evaluate(() => ({
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        background: getComputedStyle(document.body).backgroundColor,
+        accent: getComputedStyle(document.querySelector('a')).color,
+        font: getComputedStyle(document.body).fontFamily,
+        linkHeight: document.querySelector('a').getBoundingClientRect().height,
+        deck: document.querySelector('a').getAttribute('href'),
+      }))
+      assert(!catalog.overflow && catalog.linkHeight >= 44, `Catalog layout/target: ${JSON.stringify(catalog)}`)
+      assert(catalog.background === (theme === 'dark' ? 'rgb(24, 26, 25)' : 'rgb(250, 249, 246)'), `Catalog lost shared ${theme} surface`)
+      assert(catalog.accent === (theme === 'dark' ? 'rgb(80, 227, 164)' : 'rgb(8, 122, 78)') && catalog.font.includes('Inter'), 'Catalog lost shared accent or font')
+      assert(catalog.deck === '/mise-introduction/', 'Theme directories leaked into the public deck index')
+    }
+    await page.getByRole('link', { name: 'Mise Introduction' }).focus()
+    assert(await page.locator('a').evaluate(element => element.matches(':focus-visible') && getComputedStyle(element).outlineStyle === 'solid'), 'Catalog link lost keyboard focus')
+  }
+  report.push('Catalog: shared light/dark theme, narrow/wide layouts, keyboard focus passed')
+  page.off('pageerror', onPageError)
+  page.off('console', onConsole)
+  assert(!browserErrors.length, `Browser errors: ${JSON.stringify(browserErrors)}`)
   return report
 }

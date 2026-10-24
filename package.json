@@ -17,5 +17,8 @@
     "@slidev/cli": "^53.0.0",
     "@slidev/theme-default": "^0.25.0",
     "wrangler": "^4.152.0"
+  },
+  "overrides": {
+    "floating-vue": "5.3.0"
   }
 }

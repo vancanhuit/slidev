@@ -1,15 +1,11 @@
 ---
-theme: default
+theme: ../../themes/forest
 title: mise - One command for every project
 layout: cover
 info: |
   An introduction to mise for managing development tools, environments, and tasks.
 author: Canh Dinh
-transition: slide-left
 mdc: true
-fonts:
-  sans: Inter
-  mono: Maple Mono
 ---
 
 # Make every project<br><span class="accent-text">set itself up.</span>
@@ -155,12 +151,15 @@ scoop install mise
 
 ```bash
 # zsh
-echo 'eval "$(~/.local/bin/mise activate zsh)"' \
+printf '%s\n' \
+  'eval "$(~/.local/bin/mise activate zsh)"' \
   >> ~/.zshrc
 
 exec zsh
 mise doctor
 ```
+
+::bottom::
 
 <div class="source">Other supported installs include Homebrew, system packages, Cargo, npm, and GitHub Releases.</div>
 
@@ -336,6 +335,8 @@ Broad defaults come from parents; the closest project config wins where values o
 - Put project requirements in the repository
 - Keep machine-only overrides out of shared config
 
+::bottom::
+
 <div class="source">Use <code>mise config ls</code> and <code>mise ls</code> to inspect sources.</div>
 
 ---
@@ -386,6 +387,8 @@ mise use github:BurntSushi/ripgrep
 # Language ecosystem
 mise use npm:prettier@latest # 3.9.6
 ```
+
+::bottom::
 
 <div class="source">Prefer core and verified binary backends over runtime-bound package installers when available.</div>
 
@@ -500,22 +503,21 @@ run = "golangci-lint run"
 depends = ["test", "lint"]
 ```
 
+::bottom::
+
 <div class="source">Runnable source: <code>decks/mise-introduction/examples/go-lint/</code></div>
 
 ---
 
 # Demo 2 · install, test, lint
 
-```bash {1|3|5-8|10-17|all}
+```bash {1|2|3-6|7-13|all}
 cd decks/mise-introduction/examples/go-lint
-
 mise install
-
 mise current go
 # 1.27.1
 mise current golangci-lint
 # 2.13.2
-
 mise run check
 # [test] $ go test ./...
 # [lint] $ golangci-lint run

@@ -1,0 +1,14 @@
+{
+  "name": "slidev-theme-forest",
+  "private": true,
+  "slidev": {
+    "defaults": {
+      "transition": "slide-left",
+      "fonts": {
+        "sans": "Inter",
+        "mono": "Maple Mono",
+        "provider": "none"
+      }
+    }
+  }
+}

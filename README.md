@@ -1,6 +1,6 @@
 # Presentation slides
 
-A collection of Slidev decks, each with its own theme in `decks/<slug>/styles/index.css`.
+A collection of Slidev decks using the shared local theme in `themes/forest/`.
 
 ## Use
 
@@ -41,6 +41,17 @@ Pushes to `main` build and deploy automatically through Cloudflare Workers Build
 
 - Give each deck a descriptive directory containing `slides.md`; `scripts/build.mjs` discovers it automatically.
 - Keep deck-wide settings in the headmatter at the top of each deck's `slides.md`.
-- Put deck visual rules and brand tokens in its `styles/index.css`.
+- Use `theme: ../../themes/forest` in each deck's headmatter. The theme owns fonts, colors, typography, column gutters, common layouts, syntax highlighting, and accessibility styles.
+- Keep topic-specific diagrams and styles in the deck's `styles/index.css`; keep examples, assets, and route behavior beside the deck.
 - Put deck assets in its `public/` directory and reference them from `/`.
 - Use presenter notes in HTML comments below each slide.
+
+## Shared theme
+
+The Forest theme builds on `@slidev/theme-default`. Its defaults declare Inter and Maple Mono with automatic font-provider loading disabled: `styles/fonts.css` loads Inter once, and `styles/index.ts` bundles Maple Mono locally at weights 400 and 600. Do not request Maple Mono from Google Fonts.
+
+Edit `themes/forest/styles/tokens.css` for the shared palette, typography roles, and column gap. Presentation text uses 18px body copy, at least 14px code and supporting labels, and a 24px two-column gutter on the default 980px canvas. These are canvas sizes; actual projected readability depends on the room and display. Dense examples should be shortened or split rather than reduced below the shared type scale. Reading mode keeps 16px body and code text without scaling the slide canvas.
+
+The public deck index reuses the theme's font and color styles without loading Slidev. Theme changes must pass `npm run build`, the browser regression check above, and `npx wrangler deploy --dry-run`.
+
+FloatingVue is temporarily pinned to 5.3.0: Shiki's Twoslash plugin accesses component internals removed in 5.4.0 and otherwise logs a startup error ([upstream issue](https://github.com/shikijs/shiki/issues/1329)). Remove the override once Shiki supports the new structure, then rerun the browser check and manually verify Twoslash hover popups.
