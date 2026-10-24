@@ -6,3 +6,5 @@ dist/
 *.pdf
 *.pptx
 .DS_Store
+# CocoIndex Code (ccc)
+/.cocoindex_code/

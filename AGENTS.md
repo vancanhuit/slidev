@@ -5,7 +5,7 @@
 - Each deployable deck lives at `decks/<slug>/slides.md`; `<slug>` is its public path at `https://slides.canhdinh.com/<slug>/`.
 - Keep deck-specific files beside `slides.md`, including `styles/`, `public/`, examples, and Dockerfiles. Slidev treats the deck directory, not the repository root, as that deck's project root.
 - `scripts/build.mjs` treats every immediate directory under `decks/` as a deck and expects each one to contain `slides.md`.
-- `npm run dev` and `npm run dev:mise` target `decks/mise-introduction/slides.md`; `npm run dev:microsandbox` and `npm run export` target `decks/microsandbox-introduction/slides.md`. Invoke `slidev decks/<slug>/slides.md` directly for another deck.
+- `npm run dev`, `npm run dev:mise`, and `npm run export` target `decks/mise-introduction/slides.md`. Invoke `slidev decks/<slug>/slides.md` directly for another deck.
 
 ## Verification
 

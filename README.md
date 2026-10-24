@@ -1,6 +1,6 @@
 # Presentation slides
 
-A shared Slidev starter with the base presentation theme in `styles/index.css`.
+A collection of Slidev decks, each with its own theme in `decks/<slug>/styles/index.css`.
 
 ## Use
 
@@ -17,8 +17,8 @@ npm run build
 
 The static site is written to `dist/<deck-name>/`. Public builds omit presenter notes and use hash routing so every deck works independently under its subpath.
 
-Published decks are listed at https://slides.canhdinh.com. This deck is available at
-https://slides.canhdinh.com/microsandbox-introduction/.
+Published decks are listed at <https://slides.canhdinh.com>. The mise deck is available at
+<https://slides.canhdinh.com/mise-introduction/>.
 
 Deploy all decks manually with:
 
@@ -27,8 +27,6 @@ npm run deploy
 ```
 
 Pushes to `main` build and deploy automatically through Cloudflare Workers Builds.
-
-`decks/microsandbox-introduction/Dockerfile.debian13-systemd` is the tested image used by the microsandbox deck.
 
 ## Conventions
 

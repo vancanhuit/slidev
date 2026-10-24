@@ -3,12 +3,11 @@
   "private": true,
   "scripts": {
     "dev": "slidev decks/mise-introduction/slides.md",
-    "dev:microsandbox": "slidev decks/microsandbox-introduction/slides.md",
     "dev:mise": "slidev decks/mise-introduction/slides.md",
     "demo:mise-go": "mise --cd decks/mise-introduction/examples/go-lint run check",
     "build": "node scripts/build.mjs",
     "deploy": "npm run build && wrangler deploy",
-    "export": "slidev export decks/microsandbox-introduction/slides.md"
+    "export": "slidev export decks/mise-introduction/slides.md"
   },
   "devDependencies": {
     "@fontsource/maple-mono": "^5.3.0",
