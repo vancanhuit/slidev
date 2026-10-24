@@ -1,6 +1,9 @@
 {
   "name": "presentation-slides",
   "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "slidev decks/mise-introduction/slides.md",
     "dev:mise": "slidev decks/mise-introduction/slides.md",
@@ -11,8 +14,8 @@
   },
   "devDependencies": {
     "@fontsource/maple-mono": "^5.3.0",
-    "@slidev/cli": "^52.19.1",
+    "@slidev/cli": "^53.0.0",
     "@slidev/theme-default": "^0.25.0",
-    "wrangler": "^4.128.0"
+    "wrangler": "^4.152.0"
   }
 }
