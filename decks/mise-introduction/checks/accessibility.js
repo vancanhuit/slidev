@@ -59,15 +59,20 @@ async (page) => {
         slides: document.querySelectorAll('.print-slide-container').length,
         width: document.querySelector('#print-container').getBoundingClientRect().width,
         overflow: document.documentElement.scrollWidth > innerWidth,
-        clipped: [...document.querySelectorAll('.slidev-layout, .feature-card, .reading-nav a')].filter(element => element.getBoundingClientRect().right > innerWidth + 1).map(element => element.className),
-        bodySize: parseFloat(getComputedStyle(document.querySelector('.feature-card p')).fontSize),
+        clipped: [...document.querySelectorAll('.slidev-layout, .feature, .trust-zone, .comparison-scroll, .reading-nav a')].filter(element => element.getBoundingClientRect().right > innerWidth + 1).map(element => element.className),
+        bodySize: parseFloat(getComputedStyle(document.querySelector('.feature p')).fontSize),
         codeSize: parseFloat(getComputedStyle(document.querySelector('pre code span')).fontSize),
-        smallSize: Math.min(...[...document.querySelectorAll('.tree-flow span, .adoption-grid small, .takeaway-grid span')].map(element => parseFloat(getComputedStyle(element).fontSize))),
+        smallSize: Math.min(...[...document.querySelectorAll('.tree-flow span, .adoption-steps small, .takeaway-grid span')].map(element => parseFloat(getComputedStyle(element).fontSize))),
         linkHeight: document.querySelector('.link-card').getBoundingClientRect().height,
         backticks: [...document.querySelectorAll('.slidev-layout h2, .callout-value')].some(element => element.textContent.includes('`')),
         dimmedCode: document.querySelectorAll('.slidev-code-dishonored').length,
         collapsed: [...document.querySelectorAll('.print-slide-container')].some(element => element.getBoundingClientRect().height < element.querySelector('.slidev-layout').getBoundingClientRect().height),
         smallHeading: [...document.querySelectorAll('h1 .accent-text')].some(element => getComputedStyle(element).fontSize !== getComputedStyle(element.closest('h1')).fontSize),
+        comparisons: document.querySelectorAll('.comparison-table').length,
+        tableBodySize: parseFloat(getComputedStyle(document.querySelector('.comparison-table td')).fontSize),
+        tableHeadingSize: parseFloat(getComputedStyle(document.querySelector('.comparison-table thead th')).fontSize),
+        boxedFeatures: [...document.querySelectorAll('.feature')].some(element => getComputedStyle(element).boxShadow !== 'none' || getComputedStyle(element).backgroundColor !== 'rgba(0, 0, 0, 0)'),
+        texturedSlides: [...document.querySelectorAll('.slidev-layout')].some(element => getComputedStyle(element).backgroundImage !== 'none'),
       }))
       assert(reader.slides === 31 && reader.width <= viewport.width, `Reader width/count: ${JSON.stringify(reader)}`)
       assert(!reader.overflow && !reader.clipped.length, `${theme} reader clipping at ${viewport.width}: ${JSON.stringify(reader)}`)
@@ -75,6 +80,9 @@ async (page) => {
       assert(reader.linkHeight >= 44 && !reader.backticks && !reader.dimmedCode, `Reader content/target regression: ${JSON.stringify(reader)}`)
       assert(!reader.collapsed, 'Reading content escaped its container')
       assert(!reader.smallHeading, 'Heading accents lost their type scale')
+      assert(reader.comparisons === 2 && !reader.boxedFeatures, 'Content-led layouts regressed to generic cards')
+      assert(reader.tableBodySize >= 16 && reader.tableHeadingSize >= 14, 'Comparison text is too small')
+      assert(!reader.texturedSlides, 'Decorative backgrounds returned')
     }
 
     await page.getByRole('link', { name: 'Back to slides' }).click()
@@ -103,7 +111,7 @@ async (page) => {
 
     await page.goto(`${base}#/3`)
     await page.keyboard.press('ArrowRight')
-    await page.waitForSelector('#slideshow > [data-slidev-no="4"] .feature-card')
+    await page.waitForSelector('#slideshow > [data-slidev-no="4"] .feature')
     const motion = await page.locator('#slideshow > .slidev-page').evaluateAll(elements => elements.some(element => {
       const style = getComputedStyle(element)
       return style.transitionDuration !== '0s' || style.translate !== 'none'
@@ -119,6 +127,11 @@ async (page) => {
     await page.keyboard.press('Tab')
     await link.focus()
     assert(await link.evaluate(element => element.matches(':focus-visible') && getComputedStyle(element).outlineStyle === 'solid'), 'Closing link has no keyboard focus indicator')
+    const comparison = page.locator('.comparison-scroll').first()
+    await comparison.focus()
+    await page.keyboard.press('ArrowRight')
+    await page.waitForFunction(() => document.querySelector('.comparison-scroll').scrollLeft > 0)
+    assert(page.url().endsWith('#/read'), 'Comparison scrolling navigated away from the reader')
     report.push(`${theme}: 31 slides, four reader sizes, contrast, stepped code, reduced motion passed`)
   }
   return report

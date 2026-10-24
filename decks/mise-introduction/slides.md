@@ -12,16 +12,15 @@ fonts:
   mono: Maple Mono
 ---
 
-<div class="eyebrow author-line">Canh Dinh</div>
-<div class="eyebrow topic-line">tools · environments · tasks · 2026</div>
-
 # Make every project<br><span class="accent-text">set itself up.</span>
 
 mise gives a repository one place to declare its tools, environment, and commands.
 
-<div class="accent-line" />
-
-<div class="version-pill">mise 2026.9.0 · verified 2 Sep 2026</div>
+<div class="cover-meta">
+  <span class="author-line">Canh Dinh</span>
+  <span>tools · environments · tasks · 2026</span>
+  <span>mise 2026.9.0 · verified 2 Sep 2026</span>
+</div>
 
 <div class="footer-note">install · activate · run</div>
 
@@ -35,8 +34,6 @@ layout: center
 class: text-center
 ---
 
-<div class="eyebrow">The problem</div>
-
 # “Works on my machine” starts<br>before the application runs.
 
 <div class="problem-row">
@@ -49,29 +46,26 @@ class: text-center
 layout: section
 ---
 
-<div class="eyebrow">01 · Model</div>
-
 # One executable.<br>Three jobs.
 
 Tools, environment variables, and project tasks converge in `mise.toml`.
+
+<div class="section-label">01 · Model</div>
 
 ---
 
 # mise at a glance
 
-<div class="three-grid">
-  <div class="feature-card">
-    <div class="feature-index">01</div>
+<div class="feature-columns">
+  <div class="feature">
     <h2>Dev tools</h2>
     <p>Install and switch runtimes and CLIs by project directory.</p>
   </div>
-  <div class="feature-card accent-card">
-    <div class="feature-index">02</div>
+  <div class="feature">
     <h2>Environments</h2>
     <p>Load project variables and PATH entries with the selected tools.</p>
   </div>
-  <div class="feature-card">
-    <div class="feature-index">03</div>
+  <div class="feature">
     <h2>Tasks</h2>
     <p>Give developers and CI the same named commands and dependencies.</p>
   </div>
@@ -87,16 +81,19 @@ Do not pitch mise as only a version manager. Its value is the shared environment
 
 # Replace a stack of single-purpose managers
 
-<div class="replacement-grid">
-  <div><span>nvm</span><strong>Node</strong></div>
-  <div><span>pyenv</span><strong>Python</strong></div>
-  <div><span>rbenv</span><strong>Ruby</strong></div>
-  <div><span>goenv</span><strong>Go</strong></div>
-  <div><span>tfenv</span><strong>Terraform</strong></div>
-  <div class="replacement-result"><span>mise</span><strong>all of them</strong></div>
+<div class="replacement-flow">
+  <dl class="manager-list">
+    <div><dt><code>nvm</code></dt><dd>Node</dd></div>
+    <div><dt><code>pyenv</code></dt><dd>Python</dd></div>
+    <div><dt><code>rbenv</code></dt><dd>Ruby</dd></div>
+    <div><dt><code>goenv</code></dt><dd>Go</dd></div>
+    <div><dt><code>tfenv</code></dt><dd>Terraform</dd></div>
+  </dl>
+  <div class="flow-arrow" aria-hidden="true">→</div>
+  <div class="replacement-result"><code>mise</code><p>all of them</p></div>
 </div>
 
-<div class="callout compact-callout">
+<div class="callout">
   <div class="callout-label">Migration path</div>
   <div class="callout-value">Keep <code>.tool-versions</code>; mise can read it and use asdf plugins when needed.</div>
 </div>
@@ -130,11 +127,11 @@ mise walks upward, merges configuration, then puts the right tool binaries first
 layout: section
 ---
 
-<div class="eyebrow">02 · First run</div>
-
 # From zero to a project toolchain
 
 Install mise, choose how it enters the shell, then declare what the project needs.
+
+<div class="section-label">02 · First run</div>
 
 ---
 layout: two-cols-header
@@ -176,25 +173,27 @@ requires a package manager, use one; the workflow after installation is the same
 
 # Three ways to enter the mise environment
 
-<div class="comparison-grid">
-  <div class="comparison-card accent-card">
-    <div class="card-kicker">Interactive shell</div>
-    <h2><code>mise activate</code></h2>
-    <p>Updates PATH and environment automatically as you change directories.</p>
-    <div class="boundary-label">recommended for terminals</div>
-  </div>
-  <div class="comparison-card">
-    <div class="card-kicker">Explicit command</div>
-    <h2><code>mise exec</code></h2>
-    <p>Creates the environment for one command without shell integration.</p>
-    <div class="boundary-label">ideal for scripts and one-offs</div>
-  </div>
-  <div class="comparison-card">
-    <div class="card-kicker">Command wrappers</div>
-    <h2>Shims</h2>
-    <p>Useful for CI and IDEs, but not every hook or env behavior is available.</p>
-    <div class="boundary-label">fallback when activation does not fit</div>
-  </div>
+<div class="comparison-scroll" role="region" aria-label="Environment entry point comparison" tabindex="0">
+<table class="comparison-table">
+  <thead><tr><th scope="col">Entry point</th><th scope="col">Behavior</th><th scope="col">Best fit</th></tr></thead>
+  <tbody>
+    <tr>
+      <th scope="row"><code>mise activate</code><small>Interactive shell</small></th>
+      <td>Updates PATH and environment automatically as you change directories.</td>
+      <td>recommended for terminals</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>mise exec</code><small>Explicit command</small></th>
+      <td>Creates the environment for one command without shell integration.</td>
+      <td>ideal for scripts and one-offs</td>
+    </tr>
+    <tr>
+      <th scope="row">Shims<small>Command wrappers</small></th>
+      <td>Useful for CI and IDEs, but not every hook or env behavior is available.</td>
+      <td>fallback when activation does not fit</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 ---
@@ -247,7 +246,7 @@ node = "26.8.1"
 pnpm = "11.25.0"
 ```
 
-<div class="callout compact-callout">
+<div class="callout">
   <div class="callout-label">Global default</div>
   <div class="callout-value"><code>mise use --global node@latest</code></div>
 </div>
@@ -256,19 +255,22 @@ pnpm = "11.25.0"
 
 # Install is not the same as activate
 
-<div class="comparison-grid two-grid">
-  <div class="comparison-card">
-    <div class="card-kicker">mise install</div>
-    <h2>Put bits on disk</h2>
-    <p>Installs declared or requested versions under the mise data directory.</p>
-    <div class="boundary-label">does not select a version by itself</div>
-  </div>
-  <div class="comparison-card accent-card">
-    <div class="card-kicker">mise use</div>
-    <h2>Install + declare</h2>
-    <p>Installs the version and writes it into project or global configuration.</p>
-    <div class="boundary-label">the normal day-to-day command</div>
-  </div>
+<div class="comparison-scroll" role="region" aria-label="Install and use command comparison" tabindex="0">
+<table class="comparison-table">
+  <thead><tr><th scope="col">Command</th><th scope="col">What happens</th><th scope="col">Keep in mind</th></tr></thead>
+  <tbody>
+    <tr>
+      <th scope="row"><code>mise install</code></th>
+      <td><strong>Put bits on disk</strong><p>Installs declared or requested versions under the mise data directory.</p></td>
+      <td>does not select a version by itself</td>
+    </tr>
+    <tr>
+      <th scope="row"><code>mise use</code></th>
+      <td><strong>Install + declare</strong><p>Installs the version and writes it into project or global configuration.</p></td>
+      <td>the normal day-to-day command</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 
 <div class="source">After cloning an existing project, run <code>mise install</code> to install everything already declared.</div>
@@ -277,11 +279,11 @@ pnpm = "11.25.0"
 layout: section
 ---
 
-<div class="eyebrow">03 · Configuration</div>
-
 # The repository becomes executable documentation
 
 `mise.toml` states which tools, values, and workflows make the project whole.
+
+<div class="section-label">03 · Configuration</div>
 
 ---
 
@@ -391,11 +393,11 @@ mise use npm:prettier@latest # 3.9.6
 layout: section
 ---
 
-<div class="eyebrow">04 · Environment</div>
-
 # Correct tools are only half the setup
 
 The same directory can also select variables, dotenv files, and project executables.
+
+<div class="section-label">04 · Environment</div>
 
 ---
 layout: two-cols-header
@@ -423,7 +425,7 @@ mise exec -- \
   sh -c 'echo "$NODE_ENV $API_URL"'
 ```
 
-<div class="callout compact-callout">
+<div class="callout">
   <div class="callout-label">Default means default</div>
   <div class="callout-value">An existing non-empty process value wins.</div>
 </div>
@@ -432,15 +434,15 @@ mise exec -- \
 
 # Keep configuration and secrets separate
 
-<div class="comparison-grid two-grid">
-  <div class="comparison-card accent-card">
-    <div class="card-kicker">Commit</div>
-    <h2>Names and safe defaults</h2>
+<div class="trust-grid">
+  <div class="trust-zone">
+    <h2>Commit</h2>
+    <h3>Names and safe defaults</h3>
     <p>Tool versions, local URLs, modes, task definitions, and dotenv filenames.</p>
   </div>
-  <div class="comparison-card danger-card">
-    <div class="card-kicker">Do not commit</div>
-    <h2>Secret values</h2>
+  <div class="trust-zone danger-zone">
+    <h2>Do not commit</h2>
+    <h3>Secret values</h3>
     <p>Tokens and credentials belong in ignored files, CI secrets, or a secret manager.</p>
   </div>
 </div>
@@ -451,11 +453,11 @@ mise exec -- \
 layout: section
 ---
 
-<div class="eyebrow">05 · Tasks</div>
-
 # One command surface for humans and CI
 
 Tasks run with the same tools and environment declared by the project.
+
+<div class="section-label">05 · Tasks</div>
 
 ---
 layout: two-cols-header
@@ -555,11 +557,11 @@ outputs = ["bin/hello"]
 layout: section
 ---
 
-<div class="eyebrow">06 · Reproducibility</div>
-
 # Ranges are convenient.<br>Locks make them repeatable.
 
 Resolve friendly requests into exact artifacts for teammates and CI.
+
+<div class="section-label">06 · Reproducibility</div>
 
 ---
 layout: two-cols-header
@@ -605,15 +607,15 @@ steps:
   - run: mise run check
 ```
 
-<div class="comparison-grid two-grid compact-grid">
-  <div class="comparison-card">
-    <div class="card-kicker">Developer</div>
-    <h2><code>mise run check</code></h2>
+<div class="shared-command"><code>mise run check</code></div>
+
+<div class="execution-contexts">
+  <div>
+    <h2>Developer</h2>
     <p>Local tools, environment, and task graph.</p>
   </div>
-  <div class="comparison-card accent-card">
-    <div class="card-kicker">CI</div>
-    <h2><code>mise run check</code></h2>
+  <div>
+    <h2>CI</h2>
     <p>The same declared versions and task graph.</p>
   </div>
 </div>
@@ -643,14 +645,14 @@ MISE_SAFE=1 mise lock --bump --dry-run --json
 
 # Adopt mise one layer at a time
 
-<div class="adoption-grid">
-  <div><span>1</span><strong>Tools</strong><small>replace version managers</small></div>
-  <div><span>2</span><strong>Environment</strong><small>move safe project defaults</small></div>
-  <div><span>3</span><strong>Tasks</strong><small>standardize entry points</small></div>
-  <div><span>4</span><strong>Lock</strong><small>pin artifacts where needed</small></div>
-</div>
+<ol class="adoption-steps">
+  <li><strong>Tools</strong><small>replace version managers</small></li>
+  <li><strong>Environment</strong><small>move safe project defaults</small></li>
+  <li><strong>Tasks</strong><small>standardize entry points</small></li>
+  <li><strong>Lock</strong><small>pin artifacts where needed</small></li>
+</ol>
 
-<div class="callout compact-callout">
+<div class="callout">
   <div class="callout-label">Smallest useful start</div>
   <div class="callout-value"><code>mise use go@latest golangci-lint@latest</code></div>
 </div>
@@ -662,8 +664,6 @@ layout: center
 class: text-center
 ---
 
-<div class="eyebrow">Takeaway</div>
-
 # Put the development contract<br><span class="accent-text">inside the repository.</span>
 
 <div class="takeaway-grid">
@@ -673,14 +673,10 @@ class: text-center
   <div><strong>Repeat</strong><span>locally and in CI</span></div>
 </div>
 
-<div class="accent-line mx-auto" />
-
 ---
 layout: center
 class: text-center
 ---
-
-<div class="eyebrow">Try it</div>
 
 # `mise exec go@latest -- go version`
 
