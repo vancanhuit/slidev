@@ -175,7 +175,7 @@ async (page) => {
       assert(catalog.deck === '/mise-introduction/', 'Theme directories leaked into the public deck index')
     }
     await page.getByRole('link', { name: 'Mise Introduction' }).focus()
-    assert(await page.locator('a').evaluate(element => element.matches(':focus-visible') && getComputedStyle(element).outlineStyle === 'solid'), 'Catalog link lost keyboard focus')
+    assert(await page.getByRole('link', { name: 'Mise Introduction' }).evaluate(element => element.matches(':focus-visible') && getComputedStyle(element).outlineStyle === 'solid'), 'Catalog link lost keyboard focus')
   }
   report.push('Catalog: shared light/dark theme, narrow/wide layouts, keyboard focus passed')
   page.off('pageerror', onPageError)

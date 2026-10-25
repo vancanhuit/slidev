@@ -20,6 +20,8 @@ The static site is written to `dist/<deck-name>/`. Public builds omit presenter 
 Published decks are listed at <https://slides.canhdinh.com>. The mise deck is available at
 <https://slides.canhdinh.com/mise-introduction/>.
 
+The SSH tunnels deck covers local, remote, dynamic, and jump-host forwarding, with editable Excalidraw diagrams. Preview it with `npx slidev decks/ssh-tunnels/slides.md`; builds publish it under `/ssh-tunnels/`. See [its deck guide](decks/ssh-tunnels/README.md) for sources and diagram editing.
+
 Use **Reading view** in the mise deck's navigation for a scrollable, phone-friendly version with every code step revealed. It is also available directly at <https://slides.canhdinh.com/mise-introduction/#/read>.
 
 With the build served locally (for example, `python3 -m http.server 4173 --directory dist`) and `playwright-cli` installed, run the mise accessibility regression check:
